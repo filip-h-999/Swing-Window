@@ -11,104 +11,70 @@ object Window {
         val layout = SpringLayout()
         content.layout = layout
 
+        val choices = arrayOf(
+            "CHOICE 1", "CHOICE 2", "CHOICE 3", "CHOICE 4",
+            "CHOICE 5", "CHOICE 6")
+
         frame.isVisible = true
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.setSize(300, 300)
         frame.setLocation(430, 100)
 
+        fun createDropDown(padWest: Int, padNorth: Int): JComboBox<String> {
+            val dropDown = JComboBox(choices)
+            layout.putConstraint(SpringLayout.WEST , dropDown, padWest,SpringLayout.WEST, content)
+            layout.putConstraint(SpringLayout.NORTH , dropDown, padNorth,SpringLayout.NORTH, content)
+            content.add(dropDown)
+            return dropDown
+        }
+
+        fun createLabel(padWest: Int, padNorth: Int, text: String): JLabel {
+            val label = JLabel(text)
+            layout.putConstraint(SpringLayout.WEST , label, padWest,SpringLayout.WEST, content)
+            layout.putConstraint(SpringLayout.NORTH , label, padNorth,SpringLayout.NORTH, content)
+            content.add(label)
+            return label
+        }
+
+        fun createSpinner(padWest: Int, padNorth: Int, value: SpinnerModel): JSpinner{
+            val spinner = JSpinner(value)
+            layout.putConstraint(SpringLayout.WEST , spinner, padWest,SpringLayout.WEST, content)
+            layout.putConstraint(SpringLayout.NORTH , spinner, padNorth,SpringLayout.NORTH, content)
+            content.add(spinner)
+            return spinner
+        }
+
         val panel = JPanel()
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
         frame.add(panel)
 
-        val lbl = JLabel("Wähle dein Fremdsprachen:")
-        layout.putConstraint(SpringLayout.WEST , lbl,5,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , lbl,1,SpringLayout.NORTH, content)
-        content.add(lbl)
-
-        val lbl2 = JLabel("Klasse:")
-        layout.putConstraint(SpringLayout.WEST , lbl2,200,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , lbl2,1,SpringLayout.NORTH, content)
-        content.add(lbl2)
-
-        val lbl3 = JLabel("Wahlpflicht:")
-        layout.putConstraint(SpringLayout.WEST , lbl3,100,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , lbl3,160,SpringLayout.NORTH, content)
-        content.add(lbl3)
-
-        val choices = arrayOf(
-            "CHOICE 1", "CHOICE 2", "CHOICE 3", "CHOICE 4",
-            "CHOICE 5", "CHOICE 6")
+        createLabel(5,1,"Wähle dein Fremdsprachen:")
+        createLabel(200,1,"Klasse:")
+        createLabel(100,160,"Wahlpflicht:")
 
         val value: SpinnerModel = SpinnerNumberModel(
-            0,
-            0,
-            10,
-            1)
-        val s = JSpinner(value)
-        content.add(s)
-        layout.putConstraint(SpringLayout.WEST , s,200,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , s,27,SpringLayout.NORTH, content)
+            0, 0, 9, 1)
+        createSpinner(200,27, value)
 
         val value2: SpinnerModel = SpinnerNumberModel(
-            0,
-            0,
-            10,
-            1)
-        val s2 = JSpinner(value2)
-        content.add(s2)
-        layout.putConstraint(SpringLayout.WEST , s2,200,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , s2,58,SpringLayout.NORTH, content)
+            0, 0, 9, 1)
+        createSpinner(200,58,value2)
 
         val value3: SpinnerModel = SpinnerNumberModel(
-            0,
-            0,
-            10,
-            1)
-        val s3 = JSpinner(value3)
-        content.add(s3)
-        layout.putConstraint(SpringLayout.WEST , s3,200,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , s3,88,SpringLayout.NORTH, content)
+            0, 0, 9, 1)
+        createSpinner(200,88,value3)
 
         val value4: SpinnerModel = SpinnerNumberModel(
-            0,
-            0,
-            10,
-            1)
-        val s4 = JSpinner(value4)
-        content.add(s4)
-        layout.putConstraint(SpringLayout.WEST , s4,200,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , s4,119,SpringLayout.NORTH, content)
+            0, 0, 9, 1)
+        createSpinner(200,119,value4)
 
-        val cb = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb,30,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb,25,SpringLayout.NORTH, content)
-        content.add(cb)
-
-        val cb2 = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb2,30,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb2,55,SpringLayout.NORTH, content)
-        content.add(cb2)
-
-        val cb3 = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb3,30,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb3,85,SpringLayout.NORTH, content)
-        content.add(cb3)
-
-        val cb4 = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb4,30,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb4,115,SpringLayout.NORTH, content)
-        content.add(cb4)
-
-        val cb5 = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb5,100,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb5,180,SpringLayout.NORTH, content)
-        content.add(cb5)
-
-        val cb6 = JComboBox(choices)
-        layout.putConstraint(SpringLayout.WEST , cb6,100,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , cb6,210,SpringLayout.NORTH, content)
+        createDropDown(30, 25)
+        createDropDown(30,55)
+        createDropDown(30,85)
+        createDropDown(30,115)
+        createDropDown(100,180)
+       val cb6 = createDropDown(100,210)
         cb6.isVisible = false
-        content.add(cb6)
 
         val btn = JButton("Next")
         content.add(btn)
