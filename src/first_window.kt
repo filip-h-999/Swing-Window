@@ -1,4 +1,5 @@
 import java.awt.Dimension
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.*
 import kotlin.system.exitProcess
 
@@ -74,22 +75,36 @@ object Window {
         createDropDown(30,115)
         createDropDown(100,180)
        val cb6 = createDropDown(100,210)
-        cb6.isVisible = false
+        cb6.isVisible = true
 
         val btn = JButton("Next")
         content.add(btn)
         layout.putConstraint(SpringLayout.WEST , btn,220,SpringLayout.WEST, content)
         layout.putConstraint(SpringLayout.NORTH , btn,220,SpringLayout.NORTH, content)
+//        btn.addActionListener { exitProcess(0) }
         btn.addActionListener { exitProcess(0) }
+        val jn = AtomicBoolean(false)
+        btn.addActionListener { jn.set(true) }
 
-        val btn2 = JButton("")
-        content.add(btn2)
-        btn2.preferredSize = Dimension(25, 25)
-        layout.putConstraint(SpringLayout.WEST , btn2,50,SpringLayout.WEST, content)
-        layout.putConstraint(SpringLayout.NORTH , btn2,212,SpringLayout.NORTH, content)
-        btn2.addActionListener { cb6.isVisible = true }
-
-        frame.isVisible = true
-
+        val check = JCheckBox()
+        content.add(check)
+        check.preferredSize = Dimension(25, 25)
+        layout.putConstraint(SpringLayout.WEST , check,50,SpringLayout.WEST, content)
+        layout.putConstraint(SpringLayout.NORTH , check,212,SpringLayout.NORTH, content)
+//        check.icon = ImageIcon("check.png")
+//        check.selectedIcon = ImageIcon("selectedIcon.png")
+        while (true) {
+            if (check.isSelected) {
+                cb6.isVisible = true
+            }
+            if (!check.isSelected) {
+                cb6.isVisible = false
+                cb6.selectedIndex = 0
+            }
+            if (jn.get()) {
+                break
+            }
+        }
+            frame.isVisible = true
     }
 }
